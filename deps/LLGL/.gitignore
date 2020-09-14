@@ -1,8 +1,0 @@
-.DS_Store
-CMakeFiles
-tests/Output
-build*/
-*.aps
-Screenshot.*
-*.cache
-Makefile
