@@ -16,7 +16,6 @@
 #include <cstring>
 #include <cerrno>
 #include <ctime>
-#include <unistd.h>
 #include <tarball.hpp>
 #include <sstream>
 #define TARHEADER static_cast<PosixTarHeader*>(header)
