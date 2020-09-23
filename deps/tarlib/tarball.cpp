@@ -18,6 +18,7 @@
 #include <ctime>
 #include <unistd.h>
 #include <tarball.hpp>
+#include <sstream>
 #define TARHEADER static_cast<PosixTarHeader*>(header)
 
 using namespace Tar;
@@ -287,17 +288,17 @@ TarReader::TarReader(istream& in){
 			}
 			//Now the metadata in the current file header is valie -- we can read the values.
 			size_t size = currentFileHeader.getFileSize();
-			//Log that we found a file
-			cout << "Found file '" << filename << "' (" << size << " bytes)\n";
 			//Read the file into memory
-			//  This won't work for very large files -- use streaming methods there!
-			char* fileData = new char[size + 1]; //+1: Place a terminal NUL to allow interpreting the file as cstring (you can remove this if unused)
-			in.read(fileData, size);
+			ostringstream str;
+			for(int i = 0; i < size; i++){
+				char byte;
+				in.get(byte);
+				str << byte;
+			}
 			
 			//insert into the map
-			files.insert(make_pair(filename, fileData));
+			files.insert(make_pair(filename, str.str()));
 			
-			delete[] fileData;
 			//In the tar archive, entire 512-byte-blocks are used for each file
 			//Therefore we now have to skip the padded bytes.
 			size_t paddingBytes = (512 - (size % 512)) % 512; //How long the padding to 512 bytes needs to be
