@@ -256,7 +256,7 @@ TarReader::TarReader(istream& in){
 		in.read((char*) &currentFileHeader, 512);
 		//When a block with zeroes-only is found, the TAR archive ends here
 		if(memcmp(&currentFileHeader, zeroBlock, 512) == 0) {
-			cout << "Found TAR end\n";
+			//found TAR end
 			break;
 		}
 		//Uncomment this to check all header checksums
