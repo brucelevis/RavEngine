@@ -107,8 +107,8 @@ size_t ZipFile::read(void *dst, size_t bytes)
         return 0;
 
     char *startptr = _buf + _pos;
-    char *endptr = _buf + size();
-    bytes = std::min<size_t>(endptr - startptr, bytes); // limit in case reading over buffer size
+    //char *endptr = _buf + size();
+    //bytes = std::min<size_t>(endptr - startptr, bytes); // limit in case reading over buffer size
     memcpy(dst, startptr, bytes); //  binary copy
     _pos += bytes;
     return bytes;
